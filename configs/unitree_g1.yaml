@@ -1,0 +1,96 @@
+schema_version: 1
+
+project:
+  name: gmr_quality_eval
+  robot_name: unitree_g1
+
+paths:
+  gmr_root: /root/gpufree-data/GMR
+  gmr_bvh_script: /root/gpufree-data/GMR/scripts/bvh_to_robot.py
+  gmr_lafan1_loader: /root/gpufree-data/GMR/general_motion_retargeting/utils/lafan1.py
+  gmr_lafan1_g1_ik_config: /root/gpufree-data/GMR/general_motion_retargeting/ik_configs/bvh_lafan1_to_g1.json
+  pair_replay_evidence: /root/gpufree-data/retargeting_quality_assessment/data/pair_replay_evidence.json
+  robot_xml: /root/gpufree-data/GMR/assets/unitree_g1/g1_mocap_29dof.xml
+  motion_catalog: /root/gpufree-data/retargeting_quality_assessment/data/motion_catalog.csv
+
+input:
+  format: gmr_pickle_v1
+  trusted_pickle_only: true
+  minimum_frames: 4
+  expected_dof_count: 29
+  root_quaternion_order: xyzw
+  quaternion_norm_tolerance: 0.001
+  units:
+    root_position: m
+    joint_position: rad
+    time: s
+
+doctor:
+  expected_python_major_minor: "3.10"
+  expected_dof_count: 29
+  expected_nq: 36
+  expected_nv: 35
+  root_qpos_width: 7
+  expected_sole_geom_count_per_foot: 4
+  sole_sphere_max_radius_m: 0.01
+  allowed_source_frame_delta: 1
+
+robot:
+  expected_xml_sha256: 85a25128d42ad3cc8dd071c089806a2773a59ee0689edcc646aeb0201ae8f4c8
+  root_joint_name: pelvis
+  floor_geom_name: floor
+  left_foot_body: left_ankle_roll_link
+  right_foot_body: right_ankle_roll_link
+  allowed_hand_contact_patterns:
+    - left_wrist
+    - right_wrist
+    - left_rubber_hand
+    - right_rubber_hand
+
+thresholds:
+  joint_jump_step_rad: 0.5
+  velocity_limit_rad_s: 9.42477796076938
+  near_limit_margin_rad: 0.05
+  near_limit_fraction: 0.02
+  penetration_m: 0.01
+  severe_penetration_m: 0.05
+  foot_near_ground_m: 0.01
+  foot_vertical_speed_contact_m_s: 0.2
+  foot_slide_speed_m_s: 0.1
+  fidelity_position_m: 0.10
+  fidelity_orientation_deg: 10.0
+  sustained_collision_frames: 5
+
+contact_policies:
+  feet_only:
+    undesired_ground_contact_is_failure: true
+    airborne_is_failure: false
+  floor_motion:
+    undesired_ground_contact_is_failure: false
+    airborne_is_failure: false
+  descriptive_only:
+    undesired_ground_contact_is_failure: false
+    airborne_is_failure: false
+
+fidelity:
+  source_format: bvh_lafan1
+  verified_pair_status: verified_replay_exact
+  supported_frame_alignments:
+    - exact
+    - source_prefix_drop_last
+  expected_ik_config_sha256: cb4ef4bc38bf8c59aabddd4baeb261fb5d23e8628ac3793fc06a9ebf699aa320
+  fps_tolerance_hz: 0.001
+  end_effector_robot_bodies:
+    - left_ankle_roll_link
+    - right_ankle_roll_link
+    - left_wrist_yaw_link
+    - right_wrist_yaw_link
+
+scoring:
+  version: v0
+  calibrated: false
+  weights:
+    smoothness: 0.30
+    joint_feasibility: 0.25
+    contact: 0.30
+    fidelity: 0.15

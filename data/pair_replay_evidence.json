@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-08-03",
+  "pair_status": "verified_replay_exact",
+  "finding": "The misleadingly named g1_dance1_subject2.pkl was generated from dance1_subject1.bvh, not dance1_subject2.bvh.",
+  "pkl": {
+    "path": "/root/gpufree-data/GMR/outputs/g1_dance1_subject2.pkl",
+    "sha256": "47186e8d2e605b0e64851f8d151c0460458618b1e5d9069d043809c958d72dcd",
+    "frames": 3944,
+    "qpos_width": 36
+  },
+  "source_bvh": {
+    "path": "/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance1_subject1.bvh",
+    "sha256": "9a285b61bb0446aa4c919c62247ff895eb158bc693be3b7477d31ef070995d73",
+    "frames": 3945,
+    "frame_time_s": 0.033333
+  },
+  "gmr": {
+    "commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+    "use_velocity_limit": false,
+    "bvh_script_sha256": "5a98fce5525a4baef078861811fe393e109fcb05efdaa69eff55b522b810dc51",
+    "lafan1_loader_sha256": "3f07179414a54f8821cbdb52307f987228e7955d27f95aee0e3941b1d5ec2f4c",
+    "motion_retarget_sha256": "3a4f9fb0d13b204c8dcbb2ab62db59bce9de81b1f5911167aa73f079e0c90663",
+    "ik_config_sha256": "cb4ef4bc38bf8c59aabddd4baeb261fb5d23e8628ac3793fc06a9ebf699aa320"
+  },
+  "alignment": {
+    "method": "source_prefix_drop_last",
+    "explanation": "The current bvh_to_robot.py breaks before appending the final qpos, so saved frame t maps to source frame t and the final source frame is absent."
+  },
+  "full_replay": {
+    "compared_frames": 3944,
+    "exact_equal_frames": 3944,
+    "mismatch_frames": 0,
+    "max_abs_qpos_difference": 0.0
+  },
+  "rejected_candidate": {
+    "path": "/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance1_subject2.bvh",
+    "reason": "A fresh GMR replay does not match the stored qpos; frame 0 max absolute qpos difference is 4.7984657408930005."
+  }
+}

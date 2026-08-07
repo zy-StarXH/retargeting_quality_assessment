@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "freeze_date": "2026-08-03",
+  "score_version": "v1",
+  "score_is_calibrated": false,
+  "cohort": "lafan1_15_motions_3_per_stratum",
+  "artifacts": {
+    "config": {
+      "path": "configs/unitree_g1_v1.yaml",
+      "sha256": "f46e6939588939b79b5ba46514027f954eb37d9ddcd7cc3645712a8cd9d43882"
+    },
+    "source_selection": {
+      "path": "data/step10_source_selection.csv",
+      "sha256": "1a090b2310117722855086c49cd12b2a8960efa8bfce4d8624c61d4678e4ab99"
+    },
+    "retarget_manifest": {
+      "path": "outputs/step10_dataset/retarget_manifest.json",
+      "sha256": "79c0b68c0a112d3c3ff0368723338e036f470e214c6e0451be375bbba09f2cd7"
+    },
+    "motion_catalog": {
+      "path": "outputs/step10_dataset/step10_motion_catalog.csv",
+      "sha256": "80602fe41991d63a044f34a86984bda2cd4c60ef17266120fa48e89f271c5eb3"
+    },
+    "automated_analysis": {
+      "path": "outputs/step10_offline_experiment/automated_analysis.json",
+      "sha256": "77e369c503038a89645f38d45a9cadff56c9854b4d8d509cb0f255a5cef62099"
+    },
+    "complete_experiment_manifest": {
+      "path": "outputs/step10_offline_experiment/step10_manifest.json",
+      "sha256": "19c4a108e1fd792c560420d8f7538dd54204b678a60f7d84606a19129dd7790c"
+    }
+  },
+  "calibration_boundary": "Offline v1 ranking is frozen; calibration against downstream robot learning is deferred to step 11."
+}

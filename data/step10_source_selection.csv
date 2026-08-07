@@ -1,0 +1,16 @@
+motion_name,source_bvh,motion_category,source_theme,contact_policy,selection_rationale
+walk1_subject1,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/walk1_subject1.bvh,standing_walking,walk,feet_only,Distinct walk take and subject for locomotion stratum
+walk2_subject3,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/walk2_subject3.bvh,standing_walking,walk,feet_only,Distinct walk take and subject for locomotion stratum
+walk4_subject1,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/walk4_subject1.bvh,standing_walking,walk,feet_only,Shorter independent walk take for locomotion stratum
+run1_subject2,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/run1_subject2.bvh,running_jumping,run,feet_only,Running example for dynamic locomotion stratum
+sprint1_subject4,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/sprint1_subject4.bvh,running_jumping,sprint,feet_only,Sprinting example for dynamic locomotion stratum
+jumps1_subject5,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/jumps1_subject5.bvh,running_jumping,jumps,feet_only,One and two leg jump theme example
+dance1_subject1_step10,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance1_subject1.bvh,dance,dance,feet_only,Independent exact full-sequence generation of the verified dance source
+dance2_subject2,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance2_subject2.bvh,dance,dance,feet_only,Second dance take and different subject
+dance2_subject5,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance2_subject5.bvh,dance,dance,feet_only,Second dance take and different subject
+obstacles3_subject3,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/obstacles3_subject3.bvh,complex_dynamic,obstacles,feet_only,Uneven terrain locomotion example
+fight1_subject3,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/fight1_subject3.bvh,complex_dynamic,fight,feet_only,Fighting motion example
+multipleActions1_subject4,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/multipleActions1_subject4.bvh,complex_dynamic,multiple_actions,feet_only,Mixed action sequence example
+ground1_subject1,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/ground1_subject1.bvh,floor_motion,ground,floor_motion,Crawling and crouching floor-motion example
+fallAndGetUp2_subject2,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/fallAndGetUp2_subject2.bvh,floor_motion,fall_and_get_up,floor_motion,Fall and recovery floor-motion example
+pushAndFall1_subject4,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/pushAndFall1_subject4.bvh,floor_motion,push_and_fall,floor_motion,Push fall and get-up floor-motion example

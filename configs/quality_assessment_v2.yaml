@@ -1,0 +1,84 @@
+protocol_version: quality_assessment_v2
+status: frozen_before_v2_validation_results
+
+provenance:
+  source_kind: interaction_record_with_robot_qpos
+  human_object_dataset: null
+  limitation: >-
+    The bundled validation records are controlled synthetic G1 demonstrations.
+    The evaluator accepts the same schema from a future human-object adapter,
+    but no external human-object validation is claimed by this configuration.
+
+base_motion:
+  project_config: /root/gpufree-data/retargeting_quality_assessment/configs/unitree_g1_v1.yaml
+  motion_category: manipulation
+  contact_policy: descriptive_only
+  fidelity_policy: unavailable_without_verified_human_source
+
+robot:
+  name: unitree_g1_29dof
+  xml: /root/gpufree-data/GMR/assets/unitree_g1/g1_mocap_29dof.xml
+  expected_xml_sha256: 85a25128d42ad3cc8dd071c089806a2773a59ee0689edcc646aeb0201ae8f4c8
+  qpos_layout: free_root_wxyz_plus_29_gmr_ordered_hinges
+  left_hand_body: left_rubber_hand
+  right_hand_body: right_rubber_hand
+  hand_proxy_radius_m: 0.055
+
+task:
+  label: bimanual_lift_translate_place
+  interaction_mode: bimanual_grasp
+  fps: 50.0
+  object_initial_pos_m: [0.2413, 0.0, 0.8952]
+  target_displacement_m: [0.20, 0.0, 0.0]
+  success_position_tolerance_m: [0.085, 0.055, 0.035]
+  success_max_linear_speed_m_s: 0.20
+  success_min_lift_m: 0.10
+
+offline_metrics:
+  hand_proxy_orientation_invariant: true
+  relative_pose_requires_bilateral_contact: true
+  contact_distance_threshold_m: 0.012
+  # The spherical rubber-hand proxy must overlap the object surface to express
+  # legal contact. Only overlap beyond this frozen allowance is penetration.
+  allowed_contact_overlap_m: 0.025
+  severe_penetration_m: 0.010
+  stable_relative_position_std_m: 0.035
+  stable_relative_orientation_std_deg: 12.0
+  stable_slip_speed_m_s: 0.10
+  event_thresholds:
+    relative_position_error_m: 0.040
+    relative_orientation_error_deg: 15.0
+    slip_speed_m_s: 0.10
+    illegal_penetration_m: 0.010
+  weights:
+    hand_object_proximity: 0.10
+    contact_timing: 0.15
+    relative_pose: 0.15
+    penetration: 0.10
+    grasp_stability: 0.25
+    task_effectiveness: 0.25
+
+combined_scoring:
+  version: quality_v2
+  calibrated: false
+  hard_fail_overrides_score: true
+  weights:
+    smoothness: 0.10
+    joint_feasibility: 0.10
+    robot_contact: 0.10
+    fidelity: 0.10
+    hand_object_proximity: 0.08
+    contact_timing: 0.10
+    relative_pose: 0.10
+    penetration: 0.08
+    grasp_stability: 0.10
+    task_effectiveness: 0.14
+
+reporting:
+  include_frame_metrics: true
+  include_events: true
+  include_plots: true
+  hash_source_files:
+    - src/gmr_quality/interaction.py
+    - src/gmr_quality/interaction_runner.py
+    - src/gmr_quality/cli.py

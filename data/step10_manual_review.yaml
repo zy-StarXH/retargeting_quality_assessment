@@ -1,0 +1,100 @@
+protocol: /root/gpufree-data/retargeting_quality_assessment/data/step10_manual_review_protocol.md
+reviews:
+  - motion_name: walk4_subject1
+    semantic_plausibility: uncertain
+    visible_artifact_severity: moderate
+    metric_agreement: agree
+    review_notes: >-
+      大部分帧保持行走样式，但抽样中出现深蹲和肢体折叠姿态；完整时间线显示
+      97.72% 帧进入 2% 关节限位带，并有持续非手部自碰撞区间。低可达性分和
+      hard-fail 与可见拥挤姿态方向一致，但仅凭静态帧不能确认源动作是否含特殊步态。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: walk1_subject1
+    semantic_plausibility: plausible
+    visible_artifact_severity: mild
+    metric_agreement: agree
+    review_notes: >-
+      六个姿态均可解释为步行、转向或下蹲过渡，未见持续自碰撞或明显穿透；速度图
+      仅有孤立峰值，fidelity 主要在序列末段下降。91.24 的类别内高分和无 hard-fail
+      与可视化总体一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: sprint1_subject4
+    semantic_plausibility: uncertain
+    visible_artifact_severity: severe
+    metric_agreement: agree
+    review_notes: >-
+      抽样包含近地折叠姿态，且关节 step/速度在多段冲刺中成片超过阈值；时间线还显示
+      末段持续自碰撞和较多 fidelity 失败。72.15 的低分及 hard-fail 能反映这些问题，
+      但静态抽样无法区分冲刺起跑姿态与重定向伪影。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: jumps1_subject5
+    semantic_plausibility: plausible
+    visible_artifact_severity: mild
+    metric_agreement: agree
+    review_notes: >-
+      姿态包含合理的腾空、屈膝和落地阶段；非手部自碰撞及穿透几乎为空，fidelity
+      绝大部分帧通过。少量速度峰值未形成 hard-fail，93.27 的类别内最高分与视觉结果一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: dance2_subject2
+    semantic_plausibility: plausible
+    visible_artifact_severity: moderate
+    metric_agreement: agree
+    review_notes: >-
+      舞蹈语义整体保留，但可见若干肢体交叉和折叠姿态；关节图存在密集 step/速度峰值，
+      时间线同时出现自碰撞、穿透、脚滑和 fidelity 失败。71.36 的低分及 hard-fail
+      与这些局部伪影一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: dance2_subject5
+    semantic_plausibility: plausible
+    visible_artifact_severity: mild
+    metric_agreement: partial
+    review_notes: >-
+      抽样姿态大体自然，连续分 85.11 也反映大多数帧质量较好；不过时间线存在局部持续
+      非手部自碰撞，从而触发 hard-fail。连续排名与局部安全门控给出不同但不矛盾的信号，
+      静态 montage 对该局部碰撞并不突出，因此记为部分一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: fight1_subject3
+    semantic_plausibility: plausible
+    visible_artifact_severity: moderate
+    metric_agreement: partial
+    review_notes: >-
+      蹲伏、伸展和近地姿态可解释为格斗动作，但也有尖锐关节峰值、持续近限位、自碰撞和
+      穿透。指标能发现几何问题；同时 feet_only 策略把部分非足部触地判为失败，而格斗中
+      该接触可能具有语义合理性，因此不把全部 hard-fail 证据都解释为动作无效。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: obstacles3_subject3
+    semantic_plausibility: plausible
+    visible_artifact_severity: mild
+    metric_agreement: agree
+    review_notes: >-
+      跨越、抬腿、下蹲和恢复站立的姿态序列与障碍主题一致；只有少量速度、穿透和
+      fidelity 异常，未形成 hard-fail。83.10 的类别内最高分与总体视觉质量一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: ground1_subject1
+    semantic_plausibility: plausible
+    visible_artifact_severity: moderate
+    metric_agreement: partial
+    review_notes: >-
+      长时间躺地和翻转符合 floor-motion 主题，配置也没有把非足部触地本身判为失败；
+      但 89.56% 帧存在几何穿透，自碰撞区间和折叠姿态亦可见，故 58.85 的低分能反映
+      重定向几何问题。由于静态图无法区分合理贴地与不合理穿透，结论仅为部分一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"
+  - motion_name: pushAndFall1_subject4
+    semantic_plausibility: plausible
+    visible_artifact_severity: moderate
+    metric_agreement: partial
+    review_notes: >-
+      推倒、落地和起身姿态与主题一致；跌倒段同时出现尖锐关节峰值、约 23.07% 的穿透帧
+      和持续自碰撞，因此 hard-fail 有明确几何依据。地面交互本身是预期语义，单靠离线
+      FK 不能判断实际受力和可执行性，故只判为部分一致。
+    reviewer: codex_structured_visual_audit
+    reviewed_at: "2026-08-03"

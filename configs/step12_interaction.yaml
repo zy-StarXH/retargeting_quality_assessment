@@ -1,0 +1,99 @@
+protocol_version: step12_g1_bimanual_carry_v1
+status: frozen_controlled_synthetic_before_robustness_results
+
+provenance:
+  source_kind: controlled_synthetic_physics_demonstrations
+  human_object_dataset: null
+  limitation: >-
+    No MotionDecode or other human-object demonstrations are present locally.
+    This benchmark validates the interaction-quality pipeline and causal fault
+    sensitivity on a typical G1 bimanual object task; it must not be described
+    as validation on human-captured object trajectories.
+
+robot:
+  name: unitree_g1_29dof
+  xml: /root/gpufree-data/GMR/assets/unitree_g1/g1_mocap_29dof.xml
+  expected_xml_sha256: 85a25128d42ad3cc8dd071c089806a2773a59ee0689edcc646aeb0201ae8f4c8
+  root_qpos: [0.0, 0.0, 0.8, 1.0, 0.0, 0.0, 0.0]
+  left_hand_body: left_rubber_hand
+  right_hand_body: right_rubber_hand
+  hand_proxy_radius_m: 0.055
+
+task:
+  label: bimanual_lift_translate_place
+  interaction_mode: bimanual_grasp
+  grasp_model: bilateral_contact_activated_soft_weld
+  fps: 50.0
+  simulation_timestep_s: 0.002
+  phase_frames:
+    approach: 40
+    grasp: 25
+    lift: 50
+    carry: 70
+    lower: 50
+    release: 25
+    settle: 40
+  object_initial_pos_m: [0.2413, 0.0, 0.8952]
+  object_initial_quat_xyzw: [0.0, 0.0, 0.0, 1.0]
+  object_half_size_m: [0.055, 0.115, 0.055]
+  object_mass_kg: 0.15
+  object_friction: 3.0
+  table_top_z_m: 0.8402
+  target_displacement_m: [0.20, 0.0, 0.0]
+  lift_height_m: 0.16
+  grasp_hand_y_m: 0.150
+  open_hand_y_m: 0.205
+  success_position_tolerance_m: [0.085, 0.055, 0.035]
+  success_max_linear_speed_m_s: 0.20
+  success_min_lift_m: 0.10
+
+demonstrations:
+  seeds: [101, 202, 303]
+  levels:
+    - name: clean
+      severity: 0.0
+    - name: mild
+      severity: 0.25
+    - name: moderate
+      severity: 0.50
+    - name: severe
+      severity: 0.75
+    - name: invalid
+      severity: 1.0
+  perturbation:
+    grasp_gap_added_at_max_severity_m: 0.060
+    left_right_desync_at_max_severity_frames: 20
+    carry_shortfall_at_max_severity_m: 0.18
+    vertical_jitter_at_max_severity_m: 0.015
+    common_lateral_bias_at_max_severity_m: 0.030
+
+offline_metrics:
+  contact_distance_threshold_m: 0.012
+  severe_penetration_m: 0.020
+  stable_relative_position_std_m: 0.035
+  stable_relative_orientation_std_deg: 12.0
+  stable_slip_speed_m_s: 0.10
+  weights:
+    hand_object_proximity: 0.15
+    contact_timing: 0.20
+    relative_pose: 0.15
+    penetration: 0.15
+    grasp_stability: 0.20
+    task_effectiveness: 0.15
+
+robustness_evaluation:
+  episodes_per_demo: 100
+  parallel_workers: 24
+  random_seed: 20260805
+  object_position_noise_m: [0.012, 0.012, 0.004]
+  object_mass_scale_range: [0.75, 1.25]
+  friction_scale_range: [0.75, 1.25]
+  bootstrap_resamples: 10000
+  bootstrap_seed: 20260806
+
+calibration:
+  primary_offline_metric: interaction_quality_score
+  primary_target: robust_task_success_rate
+  require_spearman_positive: true
+  require_bootstrap_ci_lower_gt_zero: true
+  on_gate_failure: retain_interaction_v1_uncalibrated_and_report_negative_result

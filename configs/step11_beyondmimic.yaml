@@ -1,0 +1,82 @@
+protocol_version: step11_beyondmimic_v1
+status: frozen_compute_bounded_before_formal_policy_results
+
+inputs:
+  project_config: /root/gpufree-data/retargeting_quality_assessment/configs/unitree_g1_v1.yaml
+  step10_motion_results: /root/gpufree-data/retargeting_quality_assessment/outputs/step10_offline_experiment/analysis/motion_results.csv
+  step10_catalog: /root/gpufree-data/retargeting_quality_assessment/outputs/step10_dataset/step10_motion_catalog.csv
+  step10_manifest: /root/gpufree-data/retargeting_quality_assessment/outputs/step10_offline_experiment/step10_manifest.json
+
+framework:
+  name: whole_body_tracking_beyondmimic
+  repository: /root/Downloads/nmr_pipeline/repos/whole_body_tracking
+  expected_commit: cd65172032893724b445448818c34165846d847d
+  isaaclab_repository: /root/IsaacLab
+  expected_isaaclab_commit: c91a125c73c8b574878419a9583afc0b63b99f0a
+  conda_environment: isaaclab
+  python: /opt/conda/envs/isaaclab/bin/python
+  task: Tracking-Flat-G1-v0
+  gpu_required: true
+
+cohorts:
+  strata:
+    - standing_walking
+    - running_jumping
+    - dance
+    - complex_dynamic
+    - floor_motion
+  k_per_stratum: 1
+  random_selection_seed: 20260803
+  groups: [top_k, random_k, bottom_k, full]
+  common_source_frames_per_motion: 3933
+  source_fps: 30
+  training_fps: 50
+  normalize_xy_origin: true
+
+training:
+  policy_seeds: [11, 22, 33]
+  num_envs: 4096
+  max_iterations: 300
+  transitions_per_policy: 29491200
+  budget_basis: >-
+    A 4096-environment GPU smoke benchmark measured 98304 transitions and
+    approximately 4.19 seconds for the first iteration on one RTX 4090. The
+    upstream 30000-iteration default would require about 35 hours per policy
+    and 17.5 GPU-days for 12 policies. The formal budget was therefore frozen
+    at 300 iterations (29,491,200 transitions per policy) before inspecting
+    any formal policy outcome.
+  steps_per_env: 24
+  logger: tensorboard
+  actor_hidden_dims: [512, 256, 128]
+  critic_hidden_dims: [512, 256, 128]
+  sampler: uniform_over_motion_then_time
+  adaptive_failure_sampling: false
+  reason_for_uniform_sampler: Prevent quality-dependent sampling effort from confounding cohort comparison.
+
+evaluation:
+  deterministic_policy: true
+  episodes_per_motion_per_seed: 100
+  episode_length_s: 10.0
+  start_times: evenly_spaced_over_reference
+  required_metrics:
+    - success_rate
+    - convergence_iteration
+    - episode_length_s
+    - mpjpe_m
+    - weighted_mpjpe_m
+    - fall_rate
+  confidence_level: 0.95
+  bootstrap_resamples: 10000
+  bootstrap_seed: 20260804
+
+calibration:
+  primary_target: success_rate
+  cross_validation: leave_one_motion_category_out
+  dimensions:
+    - smoothness_score
+    - joint_feasibility_score
+    - contact_score
+    - fidelity_score
+  require_out_of_fold_spearman_positive: true
+  require_bootstrap_ci_lower_gt_zero: true
+  on_gate_failure: retain_v1_uncalibrated_and_report_negative_result

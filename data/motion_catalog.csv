@@ -1,0 +1,4 @@
+motion_name,pkl_path,source_bvh,motion_category,contact_policy,source_pair_status,pkl_sha256,source_bvh_sha256,frame_alignment,notes
+dance1_subject1_verified,/root/gpufree-data/GMR/outputs/g1_dance1_subject2.pkl,/root/gpufree-data/ubisoft-laforge-animation-dataset/lafan1/datasets/dance1_subject1.bvh,dance,feet_only,verified_replay_exact,47186e8d2e605b0e64851f8d151c0460458618b1e5d9069d043809c958d72dcd,9a285b61bb0446aa4c919c62247ff895eb158bc693be3b7477d31ef070995d73,source_prefix_drop_last,Despite the misleading PKL filename full GMR replay proves 3944 of 3944 qpos frames exactly match dance1_subject1; the final BVH frame was not saved
+walk_unpaired,/root/gpufree-data/GMR/outputs/walk.pkl,,unknown,descriptive_only,unpaired,,,,Source BVH is not reliably known and fidelity must remain disabled
+amass_g1_sample,/root/gpufree-data/GMR/outputs/amass/g1_motion.pkl,,unknown,descriptive_only,unpaired,,,,AMASS smoke sample without source-motion provenance
